@@ -3,7 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ecommerceApp.web", "ecommerceApp.web\ecommerceApp.web.csproj", "{F37D1D30-1520-4518-83D7-EA3E3F99939D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ecommerceApp.Entities", "ecommerceApp.Entities\ecommerceApp.Entities.csproj", "{689D1DBF-60CB-4816-94FB-E07F82F44817}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ecommerceApp.Database", "ecommerceApp.Database\ecommerceApp.Database.csproj", "{8130837F-9CB6-4BB2-8EF2-A0D18C718F28}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F37D1D30-1520-4518-83D7-EA3E3F99939D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F37D1D30-1520-4518-83D7-EA3E3F99939D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F37D1D30-1520-4518-83D7-EA3E3F99939D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F37D1D30-1520-4518-83D7-EA3E3F99939D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{689D1DBF-60CB-4816-94FB-E07F82F44817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{689D1DBF-60CB-4816-94FB-E07F82F44817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{689D1DBF-60CB-4816-94FB-E07F82F44817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{689D1DBF-60CB-4816-94FB-E07F82F44817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8130837F-9CB6-4BB2-8EF2-A0D18C718F28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8130837F-9CB6-4BB2-8EF2-A0D18C718F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8130837F-9CB6-4BB2-8EF2-A0D18C718F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8130837F-9CB6-4BB2-8EF2-A0D18C718F28}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
