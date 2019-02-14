@@ -1,0 +1,53 @@
+﻿@model ecommerceApp.web.viewModel.OrderViewModel
+<div class=" title-section ">
+    <h2 class="title">liste des ordres</h2>
+</div>
+<div id="createDiv" class="container">
+    <center>
+        <form method="post" action="/Order/" class="row">
+            <input name="userId" id="searchTxt"  class="col-8" type="text" />
+            <button id="searchBtn" class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>&nbsp;&nbsp;
+            <button id="ResetBtn" class="btn btn-outline-secondary col-1" type="button"><i class="fa fa-refresh"></i></button>&nbsp;&nbsp;
+        </form>
+    </center>
+
+
+</div>
+<br /><br />
+<div class="container">
+    <table id="Orderstable" class="table table-hover table-striped">
+        <thead style="color : darkred">
+            <tr>
+                <th class="font-weight-bold">User Id</th>
+                <th class="font-weight-bold">Prix total</th>
+                <th class="font-weight-bold">Status</th>
+                <th class="font-weight-bold">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Orders != null && Model.Orders.Count> 0)
+            {
+                foreach (var p in Model.Orders)
+                {
+                    <tr>
+                        <td>@p.userId</td>
+                        <td>@p.totalAmount</td>
+                        <td>@p.status</td>
+                        <td>
+                            <a class="detailBtn  btn btn-outline-danger" data-id="@p.Id" href="/Order/Detail?ID=@p.Id"><i class="fa fa-eye"></i> Details</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr> <td class="text-danger " colspan="3"> Pas d'ordres disponibles .</td></tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+</script>

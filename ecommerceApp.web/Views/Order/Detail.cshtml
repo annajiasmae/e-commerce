@@ -1,0 +1,100 @@
+﻿@model ecommerceApp.web.viewModel.OrderDetailsViewModel
+
+
+@if (Model != null && Model.order != null)
+{
+    var i = 1;
+    <section class="flat-row flat-iconbox">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 order-md-2 mb-4">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Panier </span>
+                        <span class="badge badge-secondary badge-pill"></span>
+                    </h4>
+                    <ul class="list-group mb-3">
+                       @*@foreach (var ot in Model.order.orderItems)
+                        {
+
+                            <li class="list-group-item d-flex justify-content-between lh-condensed"  data-id="@ot.Id">
+                                <div>
+                                    <h6 class="my-0">@i - @ot.produit.nom - Quantity : @ot.Qte </h6>
+                                </div>
+                                <span class="text-muted">Unit price: @ot.produit.prix Dh - Total price :@(ot.Qte * ot.produit.prix) </span>
+                            </li>
+                            i++;
+                        }*@
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Total (MA)</span>
+                            <strong>@Model.order.totalAmount</strong>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-8 order-md-1">
+                    <h4 class="mb-3">
+                        coordonné facture 
+                    </h4>
+                    <form class="needs-validation AVAST_PAM_nonloginform" novalidate="">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName">
+                                    Nom client
+                                </label>
+                                @*<input type="text" class="form-control" id="firstName" placeholder="" value="@Model.OrderBy.Name" />*@
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" value="@Model.OrderBy.Email" placeholder="you@example.com" required="">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address">
+                                Adresse
+                            </label>
+                            @*<input type="text" class="form-control" name="address" id="address" value="@Model.OrderBy.Address" required="">*@
+                        </div>
+                        <div class="mb-3">
+                            <label for="address">
+                                Status 
+                            </label>
+                            <select>
+                                @foreach (var st in Model.statusDisp)
+                                {
+                                    var select = st == Model.order.status;
+                                <option @(select ? "selected" : string.Empty)>
+                                    @st
+                                </option>
+                                }
+                                
+                            </select>
+                        </div>
+                        <hr class="mb-4">
+                        <button class="btn btn-outline-danger btn-lg btn-block" type="button" id="placeOrderBtn">
+                              save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+    <script>
+        $("#placeOrderBtn").click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/Shop/PostOrder',
+                data:{
+                    productsID: @string.Join("-", Model);
+                }
+            } ).done(function (response) {
+                $.cookie('Cart', '', { path: '/' });
+                updateCartProduct();
+                alert("votre commande est enregistré !");
+                 window.location = '@Url.Action("Index" ,"Shop")';
+                }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('FAIL');
+        });
+
+    </script>

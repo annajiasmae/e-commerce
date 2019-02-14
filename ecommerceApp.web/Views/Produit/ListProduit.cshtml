@@ -1,0 +1,140 @@
+﻿@model List<ecommerceApp.Entities.Produit>
+@{
+    ViewBag.Title = "ListProduit";
+    var c = ViewBag.categories as IEnumerable<ecommerceApp.Entities.Categorie>;
+}
+<br />
+
+<div class=" title-section ">
+    <h2 class="title">liste des produits</h2>
+</div>
+<div id="createDiv" class="container">
+    <center>
+        <form method="post" action="/Produit/ListProduit" class="row">
+            <input name="search" id="searchTxt" class="col-8" type="text" />
+            <button id="searchBtn" class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>&nbsp;&nbsp;
+            <button id="ResetBtn" class="btn btn-outline-secondary col-1" type="button"><i class="fa fa-refresh"></i></button>&nbsp;&nbsp;
+            <a id="newBtn" href="/Produit/Create" class="col-2 btn btn-outline-danger"><i class="fa fa-plus-circle"></i> Produit</a>
+        </form>
+    </center>
+
+
+</div>
+<br /><br />
+<div class="container">
+    <table id="table" class="table table-hover table-striped">
+        <thead style="color : darkred">
+            <tr>
+                <th class="font-weight-bold">Nom produit</th>
+                <th class="font-weight-bold">Categorie</th>
+                <th class="font-weight-bold">Prix</th>
+                <th class="font-weight-bold">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() > 0)
+            {
+                foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.nom</td>
+                        <td>@c.Where(cat => cat.Id == p.IdCat).First().nom</td>
+                        <td>@p.prix</td>
+                        <td>
+                            <a href="/Produit/Edit?Id=@p.Id" class=" btn btn-outline-warning "><i class="fa fa-check-square"></i></a>
+                            <button class="deleteBtn  btn btn-outline-danger" data-id="@p.Id"><i class="fa fa-trash"></i></button>
+                            @*<button class="addCart btn btn-outline-success" data-id="@p.Id"><i class="fa fa-plus-square"> carte </i></button>*@
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr> <td class="text-gray-dark " colspan="3"> Pas de produits disponible .</td></tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    
+    $("#searchBtn").click(function () {
+        var searchValue = $('#searchTxt').val();
+        $.ajax({
+            type: 'POST',
+            url: '/Produit/ListProduit',
+            data: {
+                search: searchValue
+            }
+        }).done(function (response) {
+            $("#responseTab").html(response);
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('FAIL');
+        });
+    });
+    $("#ResetBtn").click(function () {
+
+        var searchValue = '';
+        $.ajax({
+            type: 'POST',
+            url: '/Produit/ListProduit',
+            data: {
+                search: searchValue
+            }
+        }).done(function (response) {
+            $("#responseTab").html(response);
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('FAIL');
+        });
+    });
+    var produits = [];
+    $(".addCart").click(function () {
+        var productId = $(this).attr('data-id');
+        produits.push(productId);
+        $.cookie('Cart', produits.join('-'));
+        alert("ajouté à la carte ");
+    });
+    //$("#newBtn").click(function () {
+    //    $.ajax({
+    //        url: '/Produit/Create'
+    //    }).done(function (response) {
+    //        $("#newContainer").html(response);
+    //    }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+    //        alert('FAIL');
+    //    });
+    //});
+    //$(".editBtn").click(function () {
+
+    //    $.ajax({
+    //        type: 'Get',
+    //        url: '/Produit/Edit',
+    //        data: {
+    //            Id: $(this).attr('data-id')
+    //        }
+    //    }).done(function (response) {
+    //        $("#newContainer").html(response);
+    //    }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+    //        alert('FAIL');
+    //    });
+    //});
+
+    $(".deleteBtn").click(function () {
+
+        var confirmDelete = confirm('Vous voulez supprimer ce produit ?');
+        if (confirmDelete) {
+            $.ajax({
+                type: 'Post',
+                url: '/Produit/Delete',
+                data: {
+                    Id: $(this).attr('data-id')
+                }
+            }).done(function (response) {
+                $("#responseTab").html(response);
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('FAIL');
+            });
+        }
+    });
+</script>

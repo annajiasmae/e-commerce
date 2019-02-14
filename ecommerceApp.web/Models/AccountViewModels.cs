@@ -65,6 +65,14 @@ namespace ecommerceApp.web.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Nom complet")]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Adresse")]
+        public string Adresse { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Courrier électronique")]
         public string Email { get; set; }

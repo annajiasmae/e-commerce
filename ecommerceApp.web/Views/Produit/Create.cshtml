@@ -1,0 +1,101 @@
+﻿@model List<Categorie>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Create";
+}
+
+<br />
+<div class=" title-section ">
+    <h2 class="title">Nouveau produit</h2>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <form method="post">
+                <div class="contact-name clearfix">
+                    <label>Selectionner une categorie </label>
+                    <select name="IdCat">
+                        @foreach (var c in Model)
+                        {
+                            <option value="@c.Id">@c.nom</option>}
+                    </select>
+                </div>
+                <br />
+                <div class="contact-name clearfix">
+                    <label>Nom </label>
+                    <input name="nom" type="text" />
+                </div><br />
+                <div class="contact-name clearfix">
+                    <label>Description </label>
+                    <input name="description" type="text" />
+                </div><br />
+                <div class="contact-name clearfix">
+                    <label>Prix(Dh)</label>
+                    <input name="prix" type="text" />
+                </div>
+
+                <div class=" contact-name clearfix">
+                    <label> Selectionner une image </label>
+                    <input id="ImageUrl" name="ImageUrl" type="hidden" />
+                    <input id="imageUpload" name="image" class="form-control btn-default" accept=".png , .jpg" type="file" />
+                </div>
+                <br />
+                <center><button type="submit" class="col-3 btn btn-outline-warning"> enregistrer </button> &nbsp;&nbsp; <button id="annuler" type="button" class="col-2 btn btn-outline-danger"> annuler </button>@*<button type="submit" class="form-control btn btn-outline-p" id="saveBtn"> enregistrer </button>*@</center>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <div class="thumb">
+                <img class="img-thumbnail img-fluid" src="~/images/1_W35QUSvGpcLuxPo3SRTH4w.png" id="imgUp" />
+            </div>
+        </div>
+    </div>
+    <br /> <br />
+
+    <br />
+</div>
+
+<script>
+    $("#imageUpload").change(function () {
+        //debugger;
+        var element = this;
+        var formData = new FormData();
+        var totalFiles = element.files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/Shared/UploadImage',
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            processData: false
+        }).done(function (response) {
+            //debugger
+            console.log(response);
+            if (response.Success) {
+                $("#ImageUrl").val(response.ImageUrl);
+                $("#imgUp").attr("src", response.ImageUrl);
+            }
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('FAIL');
+        });
+    });
+    //$("#saveBtn").click(function () {
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: '/Produit/Create',
+    //        data: $('#containerAdd').serialize()
+    //    }).done(function (response) {
+    //        $("#newContainer").html(response);
+    //        $("#containerAdd").html("");
+    //    }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+    //        alert('FAIL');
+    //    });
+    //});
+    $("#annuler").click(function () {
+        window.location.href = "/Produit";
+    });
+</script>

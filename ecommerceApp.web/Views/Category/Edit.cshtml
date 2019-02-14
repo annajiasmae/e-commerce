@@ -1,0 +1,75 @@
+﻿@model ecommerceApp.Entities.Categorie
+@{
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Edit category";
+}
+
+<br />
+<div class=" title-section ">
+    <h3 class="title">Edition de catégorie</h3>
+</div>
+<div class="container">
+    <form method="post">
+        <div class="row">
+            <div class="col-8">
+                <input name="Id" type="hidden" value="@Model.Id" />
+                <div class="contact-name clearfix">
+                    <label> Nom </label>
+                    <input name="nom" type="text" value="@Model.nom" />
+                </div>
+                <div class="contact-name clearfix">
+                    <label>Description </label>
+                    <input name="description" type="text" value="@Model.description" />
+                </div>
+                <div class=" contact-name clearfix">
+                    <label> Selectionner une image </label>
+                    <input id="ImageUrl" name="ImageUrl" type="hidden" />
+                    <input id="imageUpload" name="image" class="form-control btn-default" accept=".png , .jpg" type="file" />
+                    <img id="imgUp" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="thumb">
+                    <img src="@Model.ImageUrl" class="img-thumbnail img-fluid" />
+                </div>
+            </div>
+        </div>
+        
+        <center><button type="submit" class="btn btn-outline-primary">enregistrer</button></center>
+        <br />
+        <br />
+    </form>
+</div>
+
+<script>
+    $("#imageUpload").change(function () {
+        debugger;
+        var element = this;
+        var formData = new FormData();
+        var totalFiles = element.files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/Shared/UploadImage',
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            processData: false
+        }).done(function (response) {
+            debugger
+            console.log(response);
+            if (response.Success) {
+                $("#ImageUrl").val(response.ImageUrl);
+                $("#imgUp").attr("src", response.ImageUrl);
+            }
+            //$("#newContainer").html(response);
+            //$("#containerAdd").html("");
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('FAIL');
+        });
+    });
+</script>

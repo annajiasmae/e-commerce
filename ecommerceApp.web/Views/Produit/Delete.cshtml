@@ -1,0 +1,14 @@
+﻿@model ecommerceApp.Entities.Produit
+@{
+        ViewBag.Title = "Delete product";
+}
+
+<h2>Delete</h2>
+
+<form method="post">
+    <input name="Id" type="hidden" value="@Model.Id" />
+    <p> Vous sure que vous voulez supprimer ce produit ?! </p>
+    <button type="submit"> supprimer</button>
+    <a href="/Index" class="btn btn-default"> annuler</a>
+</form>
+

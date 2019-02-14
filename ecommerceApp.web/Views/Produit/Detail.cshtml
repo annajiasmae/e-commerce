@@ -1,0 +1,181 @@
+﻿@model ecommerceApp.web.viewModel.ProductViewModel
+@{
+    ViewBag.Title = "Detail";
+    var cat = ViewBag.categories as IEnumerable<ecommerceApp.Entities.Categorie>;
+    var defaultImg = "~/images/1_W35QUSvGpcLuxPo3SRTH4w.png";
+}
+
+@if (Model != null && Model.Product != null)
+{
+    var img = string.IsNullOrEmpty(Model.Product.ImageUrl) ? defaultImg : Model.Product.ImageUrl;
+    <!-- Page title -->
+    <div class="page-title parallax parallax1">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-title-heading">
+                        <h1 class="title">@Model.Product.nom</h1>
+                    </div><!-- /.page-title-heading -->
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li><a href="http://localhost:64185/">Home</a></li>
+                            <li><a href="http://localhost:64185/">Shop</a></li>
+                            <li><a href="#">Produits</a></li>
+                        </ul>
+                    </div><!-- /.breadcrumbs -->
+                </div><!-- /.col-md-12 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div><!-- /.page-title -->
+
+    <section class="flat-row main-shop shop-detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="wrap-flexslider">
+                        <div class="inner">
+                            <a href="@img" class="zoom-popup"><span class="fa fa-search-plus"></span>
+                                                              <img src="@img" alt="Image">
+                            </a>      
+                        </div>
+                    </div>
+                </div><!-- /.col-md-6 -->
+
+                <div class="col-md-6">
+                    <div class="product-detail">
+                        <div class="inner">
+                            <div class="content-detail">
+                                <h2 class="product-title">@Model.Product.nom</h2>
+                                <div class="flat-star style-1">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                    <span>(1)</span>
+                                </div>
+                                <p>@Model.Product.nom : @Model.Product.description</p>
+                                <div class="price">
+                                    @*<del><span class="regular">@p.prix <strong>Dh</strong></span></del>*@
+                                    <ins><span class="amount">@Model.Product.prix</span></ins>
+                                </div>
+                                <div class="size">
+                                    <span>Size:</span>
+                                    <ul>
+                                        <li><a href="#">L</a></li>
+                                        <li><a href="#">M</a></li>
+                                        <li><a href="#">S</a></li>
+                                        <li><a href="#">Over Size</a></li>
+                                    </ul>
+                                </div>
+                                <div class="product-color">
+                                    <span>Colors:</span>
+                                    <ul class="flat-color-list">
+                                        <li><a href="#" class="yellow"></a></li>
+                                        <li><a href="#" class="pink"> </a></li>
+                                        <li><a href="#" class="red"></a></li>
+                                        <li><a href="#" class="black"></a></li>
+                                        <li><a href="#" class="blue"></a></li>
+                                        <li><a href="#" class="khaki"></a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="product-quantity">
+                                    <div class="quantity">
+                                        <input type="text" value="1" name="quantity-number" class="quantity-number">
+                                        <span class="inc quantity-button">+</span>
+                                        <span class="dec quantity-button">-</span>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <a href="">ADD TO CART</a>
+                                    </div>
+                                    <div class="box-like">
+                                        <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
+                                    </div>
+                                </div>
+                                <div class="product-categories">
+                                    <span>Categories: </span><a href="#">@cat.Where(category => category.Id == Model.Product.IdCat).First().nom</a>
+                                </div>
+
+                                <ul class="flat-socials">
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!-- /.product-detail -->
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section><!-- /.flat-row -->
+
+    <section class="flat-row shop-detail-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="flat-tabs style-1 has-border">
+                        <div class="inner">
+                            <ul class="menu-tab">
+                                <li class="active">Description</li>
+                                <li>Additional information</li>
+                                @*<li>Reviews</li>*@
+                            </ul>
+                            <div class="content-tab">
+                                <div class="content-inner">
+                                    <div class="flat-grid-box col2 border-width border-width-1 has-padding clearfix">
+
+                                        <div class="grid-row image-right padding-bottom-48 clearfix">
+                                            <div class="grid-item">
+                                                <div class="text-wrap">
+                                                    <h6 class="title">Youthful Style</h6>
+                                                    <p>Fashion has always been so temporary and uncertain. You can’t keep up with it. This social phenomenon is very whimsical, thus we as the consumers always try to stay in touch with all the latest fash- ion tendencies. </p>
+                                                </div>
+                                            </div>
+                                            <div class="grid-item">
+                                                <div class="thumb text-center">
+                                                    <img src="@img" alt="Image">
+                                                </div>
+                                            </div><!-- /.grid-item -->
+                                        </div><!-- /.grid-row -->
+                                    </div><!-- /.flat-grid-box -->
+                                </div><!-- /.content-inner -->
+                                <div class="content-inner">
+                                    <div class="inner max-width-40">
+                                        <table>
+                                            <tr>
+                                                <td>Materials</td>
+                                                <td>80% cotton, 20% linen</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Size</td>
+                                                <td>One Size, XL, L, M, S</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div><!-- /.content-inner -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- /.shop-detail-content -->
+
+    <section class="flat-row shop-related">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title-section margin-bottom-55">
+                        <h2 class="title">Related Products</h2>
+                    </div>
+                    @{Html.RenderAction("Produits", "Widget", new { isLatestProducts = false , CategoryId = Model.Product.IdCat});}
+                </div>
+            </div><!-- /.row -->
+        </div>
+    </section>
+
+}
+

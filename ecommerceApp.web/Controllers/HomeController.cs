@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ecommerceApp.services;
+using ecommerceApp.web.viewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,14 @@ namespace ecommerceApp.web.Controllers
 {
     public class HomeController : Controller
     {
+        
+
         public ActionResult Index()
         {
-            return View();
+            HomeViewModel model = new HomeViewModel();
+            model.Categories = CategoriesService.Instance.GetCategories();
+            model.Produits = ProductService.Instance.GetProduits(); 
+            return View(model);
         }
 
         public ActionResult About()

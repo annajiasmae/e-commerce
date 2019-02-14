@@ -22,3 +22,37 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.btn-outline-p {
+    color: #007bff;
+    background-color: transparent;
+    background-image: none;
+    border-color: #007bff;
+}
+
+    .btn-outline-p:hover {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-outline-p:focus, .btn-outline-p.focus {
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+    }
+
+    .btn-outline-p.disabled, .btn-outline-p:disabled {
+        color: #007bff;
+        background-color: transparent;
+    }
+
+    .btn-outline-p:not(:disabled):not(.disabled):active, .btn-outline-p:not(:disabled):not(.disabled).active,
+    .show > .btn-outline-p.dropdown-toggle {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-outline-p:not(:disabled):not(.disabled):active:focus, .btn-outline-p:not(:disabled):not(.disabled).active:focus,
+        .show > .btn-outline-p.dropdown-toggle:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+        }

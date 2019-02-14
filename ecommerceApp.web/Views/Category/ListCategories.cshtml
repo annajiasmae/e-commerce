@@ -1,0 +1,131 @@
+﻿@model List<Categorie>
+@{
+    ViewBag.Title = "List des categories disponibles";
+    var products = ViewBag.products as IEnumerable<ecommerceApp.Entities.Produit>;
+
+}
+
+<br />
+<br />
+<div class=" title-section ">
+    <h2 class="title">liste des catégories</h2>
+</div>
+<div id="createDiv" class="container ">
+    <center class="row">
+        <input name="search" id="searchTxt" class="col-8" type="text" />
+        <button id="ResetBtn" class="btn btn-outline-secondary col-1" type="button"><i class="fa fa-refresh"></i></button>&nbsp;&nbsp;
+        <a id="newBtn" href="/Category/Create" class="col-2 btn btn-outline-danger"><i class="fa fa-plus-circle"></i> categorie </a>
+    </center>
+</div>
+<br />
+<div class="container">
+    <table id="table" class="table table-hover table-striped">
+        <thead class="">
+            <tr>
+                <th class="font-weight-bold">Nom categorie</th>
+                <th class="font-weight-bold">Produits</th>
+                <th class="font-weight-bold">lien d'image</th>
+                <th class="font-weight-bold">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() > 0)
+            {
+                foreach (var p in Model)
+                {
+                    <tr>
+                        <td>@p.nom</td>
+                        <td>@products.Where(pd => pd.IdCat == p.Id).Count() </td>
+                        <td>@p.ImageUrl</td>
+                        <td>
+                            <a href="/Category/Edit?Id=@p.Id" class=" btn btn-outline-warning"><i class="fa fa-edit"></i></a>
+                            <button class="deleteBtn  btn btn-outline-danger" data-id="@p.Id"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr> <td class="text-danger " colspan="4" > Pas de catégorie disponible .</td></tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    //$(document).ready(function () {
+    //    $('#table').DataTable();
+    //});
+    $("#ResetBtn").click(function () {
+        var searchValue = '';
+        $.ajax({
+            type: 'POST',
+            url: '/Category/ListCategories',
+            data: {
+                search: searchValue
+            }
+        }).done(function (response) {
+            $("#responseTab").html(response);
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('FAIL');
+        });
+    });
+    $("#searchBtn").click(function () {
+        var searchValue = $('#searchTxt').val();
+        $.ajax({
+            type: 'POST',
+            url: '/Category/ListCategories',
+            data: {
+                search: searchValue
+            }
+        }).done(function (response) {
+            $("#responseTab").html(response);
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('FAIL');
+        });
+    });
+    $("#newBtn").click(function () {
+        $.ajax({
+            url: '/Category/Create'
+        }).done(function (response) {
+            $("#newContainer").html(response);
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('FAIL');
+        });
+    });
+    $(".editBtn").click(function () {
+
+        $.ajax({
+            type: 'Get',
+            url: '/Category/Edit',
+            data: {
+                Id: $(this).attr('data-id')
+            }
+        }).done(function (response) {
+            $("#newContainer").html(response);
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('FAIL');
+        });
+    });
+    $(".deleteBtn").click(function () {
+
+        var confirmDelete = confirm('Vous voulez supprimer cet element ?');
+        if (confirmDelete) {
+            $.ajax({
+                type: 'Post',
+                url: '/Category/Delete',
+                data: {
+                    Id: $(this).attr('data-id')
+                }
+            }).done(function (response) {
+                $("#responseTab").html(response);
+            }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                alert('FAIL');
+            });
+        }
+
+    });
+</script>
+

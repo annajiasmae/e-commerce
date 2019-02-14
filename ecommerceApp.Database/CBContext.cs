@@ -8,13 +8,15 @@ using System.Threading.Tasks;
 
 namespace ecommerceApp.Database
 {
-    public class CBContext : DbContext
+    public class CBContext : DbContext, IDisposable
     {
         public CBContext() : base("ecommerceAppConnection")
         {
 
         }
-        public DbSet<Categorie> categories { get; set; }
+        public DbSet<Categorie> Categories { get; set; }
         public DbSet<Produit> Produits { get; set; }
+        public DbSet<Config> Configs { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }

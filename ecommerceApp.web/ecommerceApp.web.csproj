@@ -45,6 +45,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ecommerceApp.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ecommerceApp.Entities\bin\Debug\ecommerceApp.Entities.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -194,32 +198,355 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="code\SortByEnum.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ProduitController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\WidgetController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901270026158_InitialCreate.cs" />
+    <Compile Include="Migrations\201901270026158_InitialCreate.Designer.cs">
+      <DependentUpon>201901270026158_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902042207329_accountRegister.cs" />
+    <Compile Include="Migrations\201902042207329_accountRegister.Designer.cs">
+      <DependentUpon>201902042207329_accountRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="viewModel\CategoryViewModel.cs" />
+    <Compile Include="viewModel\HomeViewModel.cs" />
+    <Compile Include="viewModel\OrderViewModel.cs" />
+    <Compile Include="viewModel\ProductViewModel.cs" />
+    <Compile Include="viewModel\ShopViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="icon\favicon.png" />
+    <Content Include="images\1_W35QUSvGpcLuxPo3SRTH4w.png" />
+    <Content Include="images\95e8935f4e009ea9e717514d4f19fc88.jpg" />
+    <Content Include="images\9a32faced590c13260a37a9dc344ae19.jpg" />
+    <Content Include="images\9f827f646350bfe04ea424d1f562f988.jpg" />
+    <Content Include="images\avatar-1.png" />
+    <Content Include="images\avatar.png" />
+    <Content Include="images\bg-countdown-1-962x506.jpg" />
+    <Content Include="images\blog\1.jpg" />
+    <Content Include="images\blog\10.jpg" />
+    <Content Include="images\blog\11.jpg" />
+    <Content Include="images\blog\12.jpg" />
+    <Content Include="images\blog\13.jpg" />
+    <Content Include="images\blog\14.jpg" />
+    <Content Include="images\blog\15.jpg" />
+    <Content Include="images\blog\16.jpg" />
+    <Content Include="images\blog\17.jpg" />
+    <Content Include="images\blog\18.jpg" />
+    <Content Include="images\blog\19.jpg" />
+    <Content Include="images\blog\2.jpg" />
+    <Content Include="images\blog\20.jpg" />
+    <Content Include="images\blog\21.jpg" />
+    <Content Include="images\blog\3.jpg" />
+    <Content Include="images\blog\4.jpg" />
+    <Content Include="images\blog\5.jpg" />
+    <Content Include="images\blog\6.jpg" />
+    <Content Include="images\blog\7.jpg" />
+    <Content Include="images\blog\8.jpg" />
+    <Content Include="images\blog\9.jpg" />
+    <Content Include="images\blog\comment1-1.png" />
+    <Content Include="images\blog\comment1.png" />
+    <Content Include="images\blog\comment2.png" />
+    <Content Include="images\blog\new-lastest-1-370x280.jpg" />
+    <Content Include="images\blog\new-lastest-2-370x280.jpg" />
+    <Content Include="images\blog\new-lastest-3-370x280.jpg" />
+    <Content Include="images\blog\new-lastest-4-370x280.jpg" />
+    <Content Include="images\blog\new-lastest-5-370x280.jpg" />
+    <Content Include="images\blog\new-lastest-6-370x280.jpg" />
+    <Content Include="images\blog\new-lastest-7-370x280.jpg" />
+    <Content Include="images\blog\new-lastest-8-370x280.jpg" />
+    <Content Include="images\blog\new-lastest-9-370x280.jpg" />
+    <Content Include="images\blog\search_icon.png" />
+    <Content Include="images\gallery\gallery-1-870x377.jpg" />
+    <Content Include="images\gallery\gallery-2-870x377.jpg" />
+    <Content Include="images\image-box\imgbox-1-1173x620.jpg" />
+    <Content Include="images\image-box\imgbox-1-277x277.jpg" />
+    <Content Include="images\image-box\imgbox-1-370x270.jpg" />
+    <Content Include="images\image-box\imgbox-1-370x370.jpg" />
+    <Content Include="images\image-box\imgbox-1-375x240.jpg" />
+    <Content Include="images\image-box\imgbox-1-375x500.jpg" />
+    <Content Include="images\image-box\imgbox-1-450x320.jpg" />
+    <Content Include="images\image-box\imgbox-1-455x455.jpg" />
+    <Content Include="images\image-box\imgbox-1-575x277.jpg" />
+    <Content Include="images\image-box\imgbox-1-575x575.jpg" />
+    <Content Include="images\image-box\imgbox-1-576x300.jpg" />
+    <Content Include="images\image-box\imgbox-1-610x377.jpg" />
+    <Content Include="images\image-box\imgbox-1-930x930.jpg" />
+    <Content Include="images\image-box\imgbox-1-960x800.jpg" />
+    <Content Include="images\image-box\imgbox-2-277x277.jpg" />
+    <Content Include="images\image-box\imgbox-2-370x270.jpg" />
+    <Content Include="images\image-box\imgbox-2-370x370.jpg" />
+    <Content Include="images\image-box\imgbox-2-375x240.jpg" />
+    <Content Include="images\image-box\imgbox-2-375x500.jpg" />
+    <Content Include="images\image-box\imgbox-2-450x320.jpg" />
+    <Content Include="images\image-box\imgbox-2-455x455.jpg" />
+    <Content Include="images\image-box\imgbox-2-575x575.jpg" />
+    <Content Include="images\image-box\imgbox-2-576x300.jpg" />
+    <Content Include="images\image-box\imgbox-2-610x377.jpg" />
+    <Content Include="images\image-box\imgbox-2-960x800.jpg" />
+    <Content Include="images\image-box\imgbox-3-370x270.jpg" />
+    <Content Include="images\image-box\imgbox-3-370x370.jpg" />
+    <Content Include="images\image-box\imgbox-3-450x320.jpg" />
+    <Content Include="images\image-box\imgbox-3-455x455.jpg" />
+    <Content Include="images\image-box\imgbox-3-576x300.jpg" />
+    <Content Include="images\image-box\imgbox-3-610x377.jpg" />
+    <Content Include="images\image-box\imgbox-3-960x800.jpg" />
+    <Content Include="images\image-box\imgbox-4-370x370.jpg" />
+    <Content Include="images\image-box\imgbox-4-455x455.jpg" />
+    <Content Include="images\image-box\imgbox-4-576x300.jpg" />
+    <Content Include="images\image-box\imgbox-4-960x800.jpg" />
+    <Content Include="images\image-box\imgbox-5-370x370.jpg" />
+    <Content Include="images\image-box\imgbox-5-576x300.jpg" />
+    <Content Include="images\image-box\imgbox-6-370x370.jpg" />
+    <Content Include="images\images.png" />
+    <Content Include="images\instagram\instagram-1-337x280.jpg" />
+    <Content Include="images\instagram\instagram-2-337x280.jpg" />
+    <Content Include="images\instagram\instagram-3-337x280.jpg" />
+    <Content Include="images\instagram\instagram-4-337x280.jpg" />
+    <Content Include="images\instagram\instagram-5-337x280.jpg" />
+    <Content Include="images\logo%402x.png" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\maps\map_icon.png" />
+    <Content Include="images\mega-menu\1.jpg" />
+    <Content Include="images\parallax\bg-parallax1.jpg" />
+    <Content Include="images\parallax\bg-parallax2.jpg" />
+    <Content Include="images\parallax\bg-parallax3.jpg" />
+    <Content Include="images\parallax\bg-parallax4.jpg" />
+    <Content Include="images\pattern\1.png" />
+    <Content Include="images\pattern\10.png" />
+    <Content Include="images\pattern\2.png" />
+    <Content Include="images\pattern\3.png" />
+    <Content Include="images\pattern\4.png" />
+    <Content Include="images\pattern\5.png" />
+    <Content Include="images\pattern\6.png" />
+    <Content Include="images\pattern\7.png" />
+    <Content Include="images\pattern\8.png" />
+    <Content Include="images\pattern\9.png" />
+    <Content Include="images\photo-1481495278953-0967c9759b78.jpg" />
+    <Content Include="images\photo-1484502249930-e1da807099a5.jpg" />
+    <Content Include="images\photo-1527016021513-b09758b777bd.jpg" />
+    <Content Include="images\photo-1532453288672-3a27e9be9efd.jpg" />
+    <Content Include="images\photo-1533025625706-f321868a1e6c.jpg" />
+    <Content Include="images\photo-1543087903-1ac2ec7aa8c5.jpg" />
+    <Content Include="images\shop\s-01.jpg" />
+    <Content Include="images\shop\s-02.jpg" />
+    <Content Include="images\shop\s-03.jpg" />
+    <Content Include="images\shop\sh-3\1.jpg" />
+    <Content Include="images\shop\sh-3\10.jpg" />
+    <Content Include="images\shop\sh-3\11.jpg" />
+    <Content Include="images\shop\sh-3\12.jpg" />
+    <Content Include="images\shop\sh-3\13.jpg" />
+    <Content Include="images\shop\sh-3\14.jpg" />
+    <Content Include="images\shop\sh-3\15.jpg" />
+    <Content Include="images\shop\sh-3\16.jpg" />
+    <Content Include="images\shop\sh-3\17.jpg" />
+    <Content Include="images\shop\sh-3\18.jpg" />
+    <Content Include="images\shop\sh-3\19.jpg" />
+    <Content Include="images\shop\sh-3\2.jpg" />
+    <Content Include="images\shop\sh-3\20.jpg" />
+    <Content Include="images\shop\sh-3\21.jpg" />
+    <Content Include="images\shop\sh-3\3.jpg" />
+    <Content Include="images\shop\sh-3\4.jpg" />
+    <Content Include="images\shop\sh-3\5.jpg" />
+    <Content Include="images\shop\sh-3\6.jpg" />
+    <Content Include="images\shop\sh-3\7.jpg" />
+    <Content Include="images\shop\sh-3\8.jpg" />
+    <Content Include="images\shop\sh-3\9.jpg" />
+    <Content Include="images\shop\sh-4\1.jpg" />
+    <Content Include="images\shop\sh-4\10.jpg" />
+    <Content Include="images\shop\sh-4\11.jpg" />
+    <Content Include="images\shop\sh-4\12.jpg" />
+    <Content Include="images\shop\sh-4\13.jpg" />
+    <Content Include="images\shop\sh-4\14.jpg" />
+    <Content Include="images\shop\sh-4\15.jpg" />
+    <Content Include="images\shop\sh-4\16.jpg" />
+    <Content Include="images\shop\sh-4\17.jpg" />
+    <Content Include="images\shop\sh-4\18.jpg" />
+    <Content Include="images\shop\sh-4\19.jpg" />
+    <Content Include="images\shop\sh-4\2.jpg" />
+    <Content Include="images\shop\sh-4\20.jpg" />
+    <Content Include="images\shop\sh-4\21.jpg" />
+    <Content Include="images\shop\sh-4\22.jpg" />
+    <Content Include="images\shop\sh-4\23.jpg" />
+    <Content Include="images\shop\sh-4\24.jpg" />
+    <Content Include="images\shop\sh-4\25.jpg" />
+    <Content Include="images\shop\sh-4\26.jpg" />
+    <Content Include="images\shop\sh-4\27.jpg" />
+    <Content Include="images\shop\sh-4\28.jpg" />
+    <Content Include="images\shop\sh-4\29.jpg" />
+    <Content Include="images\shop\sh-4\3.jpg" />
+    <Content Include="images\shop\sh-4\30.jpg" />
+    <Content Include="images\shop\sh-4\31.jpg" />
+    <Content Include="images\shop\sh-4\32.jpg" />
+    <Content Include="images\shop\sh-4\4.jpg" />
+    <Content Include="images\shop\sh-4\5.jpg" />
+    <Content Include="images\shop\sh-4\6.jpg" />
+    <Content Include="images\shop\sh-4\7.jpg" />
+    <Content Include="images\shop\sh-4\8.jpg" />
+    <Content Include="images\shop\sh-4\9.jpg" />
+    <Content Include="images\shop\sh-5\1.jpg" />
+    <Content Include="images\shop\sh-5\10.jpg" />
+    <Content Include="images\shop\sh-5\11.jpg" />
+    <Content Include="images\shop\sh-5\12.jpg" />
+    <Content Include="images\shop\sh-5\13.jpg" />
+    <Content Include="images\shop\sh-5\14.jpg" />
+    <Content Include="images\shop\sh-5\15.jpg" />
+    <Content Include="images\shop\sh-5\2.jpg" />
+    <Content Include="images\shop\sh-5\3.jpg" />
+    <Content Include="images\shop\sh-5\4.jpg" />
+    <Content Include="images\shop\sh-5\5.jpg" />
+    <Content Include="images\shop\sh-5\6.jpg" />
+    <Content Include="images\shop\sh-5\7.jpg" />
+    <Content Include="images\shop\sh-5\8.jpg" />
+    <Content Include="images\shop\sh-5\9.jpg" />
+    <Content Include="images\shop\sh-6full\1.jpg" />
+    <Content Include="images\shop\sh-6full\10.jpg" />
+    <Content Include="images\shop\sh-6full\11.jpg" />
+    <Content Include="images\shop\sh-6full\12.jpg" />
+    <Content Include="images\shop\sh-6full\2.jpg" />
+    <Content Include="images\shop\sh-6full\3.jpg" />
+    <Content Include="images\shop\sh-6full\4.jpg" />
+    <Content Include="images\shop\sh-6full\5.jpg" />
+    <Content Include="images\shop\sh-6full\6.jpg" />
+    <Content Include="images\shop\sh-6full\7.jpg" />
+    <Content Include="images\shop\sh-6full\8.jpg" />
+    <Content Include="images\shop\sh-6full\9.jpg" />
+    <Content Include="images\shop\sh-detail\detail-01.jpg" />
+    <Content Include="images\shop\sh-detail\detail-02.jpg" />
+    <Content Include="images\shop\sh-detail\detail-03.jpg" />
+    <Content Include="images\shop\sh-detail\detail-04.jpg" />
+    <Content Include="images\shop\sh-detail\detail-05.jpg" />
+    <Content Include="images\shop\sh-detail\detail-06.jpg" />
+    <Content Include="images\shop\sh-detail\detail-07.jpg" />
+    <Content Include="images\shop\sh-detail\detail-desc-01.jpg" />
+    <Content Include="images\shop\sh-detail\detail-desc-02.jpg" />
+    <Content Include="images\shop\sh-detail\detail-desc-03.jpg" />
+    <Content Include="images\shop\sh-detail\detail-desc-04.jpg" />
+    <Content Include="images\shop\sh-detail\thumb-detail-01.jpg" />
+    <Content Include="images\shop\sh-detail\thumb-detail-02.jpg" />
+    <Content Include="images\shop\sh-detail\thumb-detail-03.jpg" />
+    <Content Include="images\shop\sh-detail\thumb-detail-04.jpg" />
+    <Content Include="images\shop\sh-detail\thumb-detail-05.jpg" />
+    <Content Include="images\shop\sh-detail\thumb-detail-06.jpg" />
+    <Content Include="images\shop\sh-detail\thumb-detail-07.jpg" />
+    <Content Include="images\shop\sh-detail\thumb-detail-08.jpg" />
+    <Content Include="images\shop\sh-detail\thumb-detail-09.jpg" />
+    <Content Include="images\shop\sh-detail\thumb-detail-10.jpg" />
+    <Content Include="images\shop\sh-detail\thumb-detail-11.jpg" />
+    <Content Include="images\shop\sh-detail\thumb-detail-12.jpg" />
+    <Content Include="images\slider\slider-bg-1.jpg" />
+    <Content Include="images\slider\slider-bg-2.jpg" />
+    <Content Include="images\slider\slider-bg-3.jpg" />
+    <Content Include="images\slider\slider-bg-4.jpg" />
+    <Content Include="images\slider\slider-bg-5.jpg" />
+    <Content Include="images\slider\slider-bg-7.jpg" />
+    <Content Include="images\slider\slider-bg-8.jpg" />
+    <Content Include="images\wordpress-version.png" />
+    <Content Include="javascript\bootstrap.min.js" />
+    <Content Include="javascript\equalize.min.js" />
+    <Content Include="javascript\gmap3.min.js" />
+    <Content Include="javascript\images-loaded.js" />
+    <Content Include="javascript\jquery-countTo.js" />
+    <Content Include="javascript\jquery-ui.js" />
+    <Content Include="javascript\jquery-waypoints.js" />
+    <Content Include="javascript\jquery.cookie.js" />
+    <Content Include="javascript\jquery.countdown.js" />
+    <Content Include="javascript\jquery.easing.js" />
+    <Content Include="javascript\jquery.flexslider-min.js" />
+    <Content Include="javascript\jquery.gomap-1.3.2.min.js" />
+    <Content Include="javascript\jquery.hoverdir.js" />
+    <Content Include="javascript\jquery.isotope.min.js" />
+    <Content Include="javascript\jquery.min.js" />
+    <Content Include="javascript\magnific.popup.min.js" />
+    <Content Include="javascript\main.js" />
+    <Content Include="javascript\owl.carousel.min.js" />
+    <Content Include="javascript\parallax.js" />
+    <Content Include="javascript\rev-slider.js" />
+    <Content Include="javascript\switcher.js" />
+    <Content Include="javascript\tether.min.js" />
+    <Content Include="rev-slider\assets\coloredbg.png" />
+    <Content Include="rev-slider\assets\gridtile.png" />
+    <Content Include="rev-slider\assets\gridtile_3x3.png" />
+    <Content Include="rev-slider\assets\gridtile_3x3_white.png" />
+    <Content Include="rev-slider\assets\gridtile_white.png" />
+    <Content Include="rev-slider\assets\loader.gif" />
+    <Content Include="rev-slider\css\layers.css" />
+    <Content Include="rev-slider\css\navigation.css" />
+    <Content Include="rev-slider\css\settings.css" />
+    <Content Include="rev-slider\fonts\revicons\revicons90c6.svg" />
+    <Content Include="rev-slider\js\extensions\revolution.extension.actions.min.js" />
+    <Content Include="rev-slider\js\extensions\revolution.extension.carousel.min.js" />
+    <Content Include="rev-slider\js\extensions\revolution.extension.kenburn.min.js" />
+    <Content Include="rev-slider\js\extensions\revolution.extension.layeranimation.min.js" />
+    <Content Include="rev-slider\js\extensions\revolution.extension.migration.min.js" />
+    <Content Include="rev-slider\js\extensions\revolution.extension.navigation.min.js" />
+    <Content Include="rev-slider\js\extensions\revolution.extension.parallax.min.js" />
+    <Content Include="rev-slider\js\extensions\revolution.extension.slideanims.min.js" />
+    <Content Include="rev-slider\js\extensions\revolution.extension.video.min.js" />
+    <Content Include="rev-slider\js\jquery.themepunch.revolution.min.js" />
+    <Content Include="rev-slider\js\jquery.themepunch.tools.min.js" />
+    <Content Include="stylesheets\animate.css" />
+    <Content Include="stylesheets\bootstrap.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\fontawesome.css" />
+    <Content Include="Content\fontawesome.min.css" />
+    <Content Include="stylesheets\colors\color1.css" />
+    <Content Include="stylesheets\colors\color2.css" />
+    <Content Include="stylesheets\colors\color3.css" />
+    <Content Include="stylesheets\colors\color4.css" />
+    <Content Include="stylesheets\favicon.ico" />
+    <Content Include="stylesheets\flexslider.css" />
+    <Content Include="stylesheets\font-awesome.css" />
+    <Content Include="fontsgLIPH\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="stylesheets\jquery-ui.css" />
+    <Content Include="stylesheets\magnific-popup.css" />
+    <Content Include="stylesheets\owl.carousel.css" />
+    <Content Include="stylesheets\responsive.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\bootstrap.css.map4" />
+    <Content Include="Content\bootstrap.css4" />
+    <Content Include="Content\bootstrap.min.css.map4" />
+    <Content Include="Content\bootstrap.min.css4" />
+    <Content Include="stylesheets\woocommerce.css" />
+    <Content Include="rev-slider\css\closedhand.123" />
+    <Content Include="rev-slider\css\openhand.123" />
+    <Content Include="rev-slider\fonts\revicons\revicons90c6.eot" />
+    <Content Include="rev-slider\fonts\revicons\revicons90c6.ttf" />
+    <Content Include="rev-slider\fonts\revicons\revicons90c6.woff" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="images\.DS_Store" />
+    <Content Include="images\shop\.DS_Store" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -231,6 +558,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="stylesheets\shortcodes.css" />
+    <Content Include="stylesheets\style.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -265,15 +594,33 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Category\create.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Produit\ListProduit.cshtml" />
+    <Content Include="Views\Produit\Index.cshtml" />
+    <Content Include="Views\Produit\Create.cshtml" />
+    <Content Include="Views\Produit\Edit.cshtml" />
+    <Content Include="Views\Produit\Delete.cshtml" />
+    <Content Include="Views\Category\ListCategories.cshtml" />
+    <Content Include="Views\Shop\Checkout.cshtml" />
+    <Content Include="Views\Widget\Produits.cshtml" />
+    <Content Include="Views\Produit\Detail.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\Detail.cshtml" />
+    <Content Include="Views\Shop\Index.cshtml" />
+    <Content Include="Views\Shop\FilterProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\about\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fontsgLIPH\glyphicons-halflings-regular.woff2" />
+    <Content Include="fontsgLIPH\glyphicons-halflings-regular.woff" />
+    <Content Include="fontsgLIPH\glyphicons-halflings-regular.ttf" />
+    <Content Include="fontsgLIPH\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
@@ -282,9 +629,42 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ecommerceApp.services\ecommerceApp.services.csproj">
+      <Project>{ab93347c-0328-4752-be51-26d6f46112c7}</Project>
+      <Name>ecommerceApp.services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901270026158_InitialCreate.resx">
+      <DependentUpon>201901270026158_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902042207329_accountRegister.resx">
+      <DependentUpon>201902042207329_accountRegister.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

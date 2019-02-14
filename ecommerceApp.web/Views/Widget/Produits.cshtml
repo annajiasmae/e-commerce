@@ -1,0 +1,84 @@
+﻿@model ecommerceApp.web.viewModel.ProductViewModel
+@{
+    var defaultImg = "~/images/1_W35QUSvGpcLuxPo3SRTH4w.png";
+    var c = ViewBag.categories as IEnumerable<ecommerceApp.Entities.Categorie>;
+}
+
+@if (Model != null && Model.Produits != null)
+{
+
+
+    if (Model.IsLatestProducts)
+    {
+        <ul class="flat-filter style-1 text-center max-width-682 clearfix">
+            <li class="active"><a href="#" data-filter="*">All Product</a></li>
+
+            @foreach (var catId in Model.Produits.Select(x => x.IdCat).ToList().Distinct())
+            {
+                <li><a href="#" data-filter=".@c.Where(category => category.Id == catId).First().nom">@c.Where(category => category.Id == catId).First().description</a></li>
+            }
+
+        </ul>
+        <div class="divider h54"></div>
+    }
+    
+    <div class="product-content product-fourcolumn clearfix">
+        <ul class="product style2 isotope-product clearfix">
+            @foreach (var p in Model.Produits)
+            {
+                var img = string.IsNullOrEmpty(p.ImageUrl) ? defaultImg : p.ImageUrl;
+                <li class="product-item @c.Where(category => category.Id == p.IdCat).First().nom">
+                    <div class="product-thumb clearfix">
+                        <a href="/Produit/Detail?Id=@p.Id" class="product-thumb">
+                            <img style="height:300px ; width:200px" src="@img" alt="image">
+                        </a>
+                        @if (Model.IsLatestProducts)
+                        {
+                            <span class="new">Nouveau</span>
+                        }
+                    </div>
+
+                    <div class="product-info text-center clearfix">
+
+                        <br />
+                        <span class="product-title font-weight-bold">@p.nom</span>
+                        <div class="price">
+                            <ins>
+                                <span class="amount">@p.prix Dh</span>
+                            </ins>
+                        </div>
+                    </div>
+                    <div class="add-to-cart text-center">
+                        <a class="addCart" data-id="@p.Id">ADD TO CART</a>
+                    </div>
+                    <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
+                </li>
+
+            }
+        </ul>
+    </div>
+}
+<script>
+    //var produits = [];
+    $(".addCart").click(function () {
+    //    var productId = $(this).attr('data-id');
+    //    produits.push(productId);
+    //    $.cookie('Cart', produits.join('-'));
+    ////  updateCartProduct();
+    //    alert("ajouté à la carte ");
+        debugger;
+        var existingCookiesData = $.cookie('Cart');
+        if (existingCookiesData != undefined && existingCookiesData != "" && existingCookiesData != null) {
+            cartProducts = existingCookiesData.split('-');
+        }
+        else {
+            produits = [];
+        }
+        var productId = $(this).attr('data-id');
+
+        produits.push(productId);
+        $.cookie('Cart', produits.join('-'), { path: '/' });
+        updateCartProduct();
+        alert("produit ajouté au panier !");
+    });
+</script>

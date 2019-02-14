@@ -1,0 +1,104 @@
+﻿@model ecommerceApp.Entities.Produit
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div class=" title-section ">
+    <h2 class="title">modification du produit</h2>
+</div>
+
+<div id="containerEdit" class="container">
+    <form method="post">
+        <div class="row">
+            <div class="col-8">
+
+                <input name="Id" type="hidden" value="@Model.Id" />
+                <input name="IdCat" type="hidden" value="@Model.IdCat" />
+                <div class="contact-name clearfix">
+                    <label>Nom</label>
+                    <input name="nom" type="text" value="@Model.nom" />
+                </div>
+                <div class="contact-name clearfix">
+                    <label>Description</label>
+                    <input name="description" type="text" value="@Model.description" />
+                </div>
+                <div class="contact-name clearfix">
+                    <label> Prix (Dh)</label>
+                    <input name="prix" type="text" value="@Model.prix" />
+                </div>
+                <div class=" contact-name clearfix">
+                    <label> Selectionner une image </label>
+                    <input id="ImageUrl" name="ImageUrl" type="hidden" />
+                    <input id="imageUpload" name="image" class="form-control btn-default" accept=".png , .jpg" type="file" />
+                </div>
+                <br />
+                <center><button type="submit" class="col-3 btn btn-outline-warning" id="updateBtn"> modifier</button>&nbsp;&nbsp; <button id="annuler" type="button" class="col-2 btn btn-outline-danger"> annuler </button></center>
+
+            </div>
+            <div class="col-md-4">
+                <div class="thumb">
+                    @if (Model.ImageUrl != null)
+                    {
+                        <img class="img-thumbnail img-fluid" src="@Model.ImageUrl" id="imgUp" />
+
+                    }
+                    else
+                    {
+                        <img class="img-thumbnail img-fluid" src="~/images/1_W35QUSvGpcLuxPo3SRTH4w.png" id="imgUp" />
+
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+    
+</div>
+
+<script>
+    $("#imageUpload").change(function () {
+        debugger;
+        var element = this;
+        var formData = new FormData();
+        var totalFiles = element.files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            var file = element.files[i];
+            formData.append("Photo", file);
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/Shared/UploadImage',
+            dataType: 'json',
+            data: formData,
+            contentType: false,
+            processData: false
+        }).done(function (response) {
+            debugger
+            console.log(response);
+            if (response.Success) {
+                $("#ImageUrl").val(response.ImageUrl);
+                $("#imgUp").attr("src", response.ImageUrl);
+            }
+            //$("#newContainer").html(response);
+            //$("#containerAdd").html("");
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('FAIL');
+        });
+    });
+    $("#annuler").click(function () {
+        window.location.href = "/Produit";
+    });
+    //$("#updateBtn").click(function () {
+    //    debugger
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: '/Produit/Edit',
+    //        data: $('#containerEdit').serialize()
+    //    }).done(function (response) {
+    //        $("#responseTab").html(response);
+    //        $("#containerEdit").html("");
+    //    }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+    //        alert('FAIL');
+    //    });
+    //});
+</script>

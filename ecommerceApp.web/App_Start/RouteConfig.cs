@@ -18,6 +18,12 @@ namespace ecommerceApp.web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "ControlPanel",
+                url: "control-panel",
+                defaults: new { controller = "Category", action = "ListCategory"}
+            );
         }
     }
 }
